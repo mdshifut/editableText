@@ -67,7 +67,6 @@ function editText(event) {
         // Insert content of the existing paragraph
     textareaElement.value = target.innerHTML
         // Add event to the textareaElement
-    textareaElement.addEventListener('keypress', saveText)
     textareaElement.addEventListener('blur', saveText)
         // Select the welcomeWrapper element
     var parentDiv = target.parentNode;
@@ -80,32 +79,23 @@ function editText(event) {
 }
 
 function saveText(event) {
+    // Select the textarea input
+    let target = event.target
+        // Select the welcomeWrapper element
+    var parentDiv = target.parentNode;
+    // Create new p Element
+    let newPra = document.createElement("p")
+        // Set ID to the p element
+    newPra.setAttribute('id', 'pra')
+        // Get textarea value and assign it into the p element
+    newPra.innerHTML = target.value
 
-    if (event.type == 'blur' || event.keyCode == 13) {
-
-        // If the paragraph doesn't exist create a new paragraph and insert it into the welcomeWrapper
-        if (!getId('pra')) {
-            // Select the textarea input
-            let target = event.target
-                // Select the welcomeWrapper element
-            var parentDiv = target.parentNode;
-            // Create new p Element
-            let newPra = document.createElement("p")
-                // Set ID to the p element
-            newPra.setAttribute('id', 'pra')
-                // Get textarea value and assign it into the p element
-            newPra.innerHTML = target.value
-
-            // Add event to the p element
-            newPra.addEventListener('click', editText)
-                //  Insert p into the welcomeWrapper
-            parentDiv.insertBefore(newPra, target);
-            // Remove the existing paragraph
-            target.remove()
-        }
-    }
-
-
+    // Add event to the p element
+    newPra.addEventListener('click', editText)
+        //  Insert p into the welcomeWrapper
+    parentDiv.insertBefore(newPra, target);
+    // Remove the existing paragraph
+    target.remove()
 }
 
 
